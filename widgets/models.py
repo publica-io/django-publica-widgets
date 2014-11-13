@@ -50,10 +50,6 @@ class WidgetAspect(models.Model):
     widget = models.ForeignKey('Widget', related_name='aspects')
 
 
-class WidgetLink(WidgetAspect):
-    link = models.ForeignKey('menus.Link')
-
-
 class WidgetMailChimpSignup(WidgetAspect):
     '''
     For example, create a widget that sign's up to Mailchimp
