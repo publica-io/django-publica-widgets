@@ -4,6 +4,7 @@ from django.db import models
 from entropy.base import (
     AttributeMixin, TextMixin, EnabledMixin, SlugMixin, TitleMixin
 )
+from templates.mixins import TemplateMixin
 
 try:
     from images.mixins import ImageMixin
@@ -12,11 +13,12 @@ except ImportError:
 
 
 class Widget(AttributeMixin, EnabledMixin, SlugMixin, TextMixin, TitleMixin,
-             ImageMixin):
+             TemplateMixin, ImageMixin):
     '''
     A Widget is a contained module of functionality that is displayed within a
     Display.
     We add functionality by adding WidgetAspects
+
     '''
 
     # title
@@ -26,24 +28,6 @@ class Widget(AttributeMixin, EnabledMixin, SlugMixin, TextMixin, TitleMixin,
     # enabled
     # attr's
     # images
-
-    template = models.ForeignKey('WidgetTemplate')
-
-
-class WidgetTemplate(AttributeMixin, SlugMixin):
-    '''
-    Create a Widget Template for rendering on the UI side.  This is a loose
-    coupling that relies on the corresponding template file or snippet being
-    available in the code base.
-    @@@ there's a candidate task to create an independant templates app, which
-    could probably be done about now.
-
-    '''
-
-    # slug
-    # attr's
-
-    pass
 
 
 class WidgetAspect(models.Model):

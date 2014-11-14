@@ -1,20 +1,16 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
 
-from .models import Widget, WidgetTemplate, WidgetMailChimpSignup
+from .models import Widget, WidgetMailChimpSignup
 
 
 class WidgetsTestCase(TestCase):
     def setUp(self):
-        widget_template = WidgetTemplate.objects.create(
-            slug='a-neat-widget-template'
-        )
         widget = Widget.objects.create(
             title='This is my long widget title',
             short_title='A neat short title',
             text='some nice neat long text that should be tested for good',
-            slug='this-is-my-long-widget-title',
-            template=widget_template
+            slug='this-is-my-long-widget-title'
         )
         WidgetMailChimpSignup.objects.create(
             widget=widget,
@@ -39,12 +35,6 @@ class WidgetsTestCase(TestCase):
     def test_widget_slug(self):
         widget = Widget.objects.get(slug='this-is-my-long-widget-title')
         self.assertEqual(widget.slug, 'this-is-my-long-widget-title')
-
-    def test_widget_template_slug(self):
-        widget_template = WidgetTemplate.objects.get(
-            slug='a-neat-widget-template'
-        )
-        self.assertEqual(widget_template.slug, 'a-neat-widget-template')
 
     def test_widget_mailchimp_signup_widget(self):
         widget = Widget.objects.get(slug='this-is-my-long-widget-title')
