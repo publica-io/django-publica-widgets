@@ -19,7 +19,7 @@ except ImportError:
 # Widget Base Classes
 
 class Widget(GenericAttrMixin, EnabledMixin, SlugMixin, TextMixin, TitleMixin,
-             ImageMixin):
+             TemplateMixin, ImageMixin):
     '''
     A Widget is a contained module of functionality that is displayed within a
     Display.
