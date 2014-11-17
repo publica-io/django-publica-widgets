@@ -18,10 +18,17 @@ from widgets import models
 class TestWidgets(unittest.TestCase):
 
     def setUp(self):
-        pass
+        
+        self.widget = models.Widget(
+            title = 'foo',
+            slug = 'foo')
+        self.widget.save()
+        self.widget['foo'] = 'bar'
 
-    def test_something(self):
-        pass
+
+    def test_attr(self):
+        self.assertEqual(self.widget['foo'], 'bar')
+
 
     def tearDown(self):
         pass

@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
+import eav
+
 from django.db import models
 
 from entropy.base import (
     AttributeMixin, TextMixin, EnabledMixin, SlugMixin, TitleMixin
 )
+
+from attrs.mixins import GenericAttrMixin
 from templates.mixins import TemplateMixin
 
 try:
@@ -12,11 +16,14 @@ except ImportError:
     ImageMixin = object
 
 
-class Widget(AttributeMixin, EnabledMixin, SlugMixin, TextMixin, TitleMixin,
-             TemplateMixin, ImageMixin):
+# Widget Base Classes
+
+class Widget(GenericAttrMixin, EnabledMixin, SlugMixin, TextMixin, TitleMixin,
+             ImageMixin):
     '''
     A Widget is a contained module of functionality that is displayed within a
     Display.
+
     We add functionality by adding WidgetAspects
 
     '''
@@ -26,18 +33,34 @@ class Widget(AttributeMixin, EnabledMixin, SlugMixin, TextMixin, TitleMixin,
     # text
     # slug
     # enabled
-    # attr's
     # images
+    # attrs / name, value
+    pass
 
 
 class WidgetAspect(models.Model):
+
     widget = models.ForeignKey('Widget', related_name='aspects')
 
 
-class WidgetMailChimpSignup(WidgetAspect):
-    '''
-    For example, create a widget that sign's up to Mailchimp
+# Widgets
 
-    '''
 
-    list_name = models.CharField(max_length=1024)
+class WidgetMap(WidgetAspect, TitleMixin, SlugMixin, ImageMixin):
+    '''
+    An Image Based Map Widget with Points Of Interest.
+    '''
+    pass
+
+
+class WidgetMapPOI(TextMixin, TitleMixin, SlugMixin):
+
+    # title
+    # short_title
+    # slug
+    # text
+
+    widget_map = models.ForeignKey('WidgetMap', related_name='pios')
+
+    x = models.IntegerField()
+    y = models.IntegerField()
