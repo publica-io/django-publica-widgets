@@ -18,6 +18,7 @@ try:
             "django.contrib.sites",
             "widgets",
             "attrs",
+            "templates",
         ],
         SITE_ID=1,
         NOSE_ARGS=['-s'],

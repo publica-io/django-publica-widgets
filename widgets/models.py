@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import eav
-
 from django.db import models
 
 from entropy.base import (
