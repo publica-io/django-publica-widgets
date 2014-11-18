@@ -5,3 +5,5 @@ wheel==0.24.0
 -e git+ssh://git@github.com/publica-io/django-entropy.git#egg=entropy
 -e git+ssh://git@github.com/publica-io/django-attrs.git#egg=attrs
 -e git+ssh://git@github.com/publica-io/django-publica-templates.git#egg=templates
+
+django-polymorphic

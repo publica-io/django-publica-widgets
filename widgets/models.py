@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.db.models.loading import get_model
+
+from polymorphic import PolymorphicModel
 
 from entropy.base import (
-    AttributeMixin, TextMixin, EnabledMixin, SlugMixin, TitleMixin
+    TextMixin, EnabledMixin, SlugMixin, TitleMixin
 )
 
 from attrs.mixins import GenericAttrMixin
@@ -16,13 +20,15 @@ except ImportError:
 
 # Widget Base Classes
 
-class Widget(GenericAttrMixin, EnabledMixin, SlugMixin, TextMixin, TitleMixin,
+class Widget(PolymorphicModel, GenericAttrMixin, EnabledMixin, SlugMixin, TextMixin, TitleMixin,
              TemplateMixin, ImageMixin):
     '''
     A Widget is a contained module of functionality that is displayed within a
     Display.
 
-    We add functionality by adding WidgetAspects
+    We add functionality by subclassing Widget into polymorphic implementations
+    of Widget; the adding WidgetAspects or a light EAV implementation via the GenericAttrMixin
+    to add custom fields in a 'name / value' style.
 
     '''
 
@@ -36,7 +42,7 @@ class Widget(GenericAttrMixin, EnabledMixin, SlugMixin, TextMixin, TitleMixin,
     pass
 
 
-class WidgetAspect(models.Model):
+class WidgetAspect(PolymorphicModel):
 
     widget = models.ForeignKey('Widget', related_name='aspects')
 
@@ -44,21 +50,33 @@ class WidgetAspect(models.Model):
 # Widgets
 
 
-class WidgetMap(WidgetAspect, TitleMixin, SlugMixin, ImageMixin):
+## Widget Map
+
+class WidgetMap(Widget):
     '''
     An Image Based Map Widget with Points Of Interest.
     '''
-    pass
+
+    @property
+    def pois(self):
+        '''
+        Return only the POIs Aspects of the Map.
+        '''
+        return self.aspects.filter(
+            polymorphic_ctype=ContentType.objects.get_for_model(get_model('widgets.WidgetMapPOI')))
 
 
-class WidgetMapPOI(TextMixin, TitleMixin, SlugMixin):
+class WidgetMapPOI(WidgetAspect, TextMixin, TitleMixin, SlugMixin):
+    '''
+    Add a Point Of Interest to the Widget Map.
+    '''
 
     # title
     # short_title
     # slug
     # text
 
-    widget_map = models.ForeignKey('WidgetMap', related_name='pios')
-
     x = models.IntegerField()
     y = models.IntegerField()
+
+## End Widget Map
