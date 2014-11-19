@@ -6,7 +6,7 @@ from django.utils.functional import cached_property
 
 from polymorphic import PolymorphicModel
 
-from entropy.base import (
+from entropy.mixins import (
     TextMixin, EnabledMixin, SlugMixin, TitleMixin
 )
 
