@@ -118,7 +118,7 @@ class WidgetGrid(Widget):
         )
 
 
-class WigdetGridItem(WidgetAspect, TitleMixin, TextMixin, SlugMixin,
+class WidgetGridItem(WidgetAspect, TitleMixin, TextMixin, SlugMixin,
                      ImageMixin):
     '''
     A Grid Item aspect for the Grid.
