@@ -44,7 +44,7 @@ class Widget(PolymorphicModel, GenericAttrMixin, EnabledMixin, SlugMixin,
     pass
 
 
-class WidgetAspect(PolymorphicModel):
+class WidgetAspect(PolymorphicModel, TitleMixin, TextMixin, SlugMixin, ImageMixin):
     widget = models.ForeignKey('Widget', related_name='aspects')
 
 
@@ -73,7 +73,7 @@ class WidgetMap(Widget):
         )
 
 
-class WidgetMapPOI(WidgetAspect, TitleMixin, TextMixin, SlugMixin):
+class WidgetMapPOI(WidgetAspect):
     '''
     Add a Point Of Interest to the Widget Map.
 
@@ -118,8 +118,7 @@ class WidgetGrid(Widget):
         )
 
 
-class WidgetGridItem(WidgetAspect, TitleMixin, TextMixin, SlugMixin,
-                     ImageMixin):
+class WidgetGridItem(WidgetAspect):
     '''
     A Grid Item aspect for the Grid.
 
@@ -131,23 +130,5 @@ class WidgetGridItem(WidgetAspect, TitleMixin, TextMixin, SlugMixin,
     # slug
     # images
     # text
-
-    pass
-
-
-# WidgetHero
-class WidgetHero(Widget):
-    '''
-    A Hero Display image based Widget.
-
-    '''
-
-    # title
-    # short_title
-    # text
-    # slug
-    # enabled
-    # images
-    # attrs / name, value
 
     pass
