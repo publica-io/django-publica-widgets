@@ -113,7 +113,7 @@ class WidgetGrid(Widget):
 
         return self.aspects.filter(
             polymorphic_ctype=ContentType.objects.get_for_model(
-                get_model('widgets.WigdetGridItem')
+                get_model('widgets.WidgetGridItem')
             )
         )
 
