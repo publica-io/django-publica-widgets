@@ -132,3 +132,18 @@ class WidgetGridItem(WidgetAspect):
     # text
 
     pass
+
+
+# Widget List
+
+class WidgetListAspect(WidgetAspect, GenericAttrMixin):
+
+    type = models.CharField(choices=(
+            ('ol', 'ordered'),
+            ('ul', 'un-ordered'),
+            ('dl', 'definition'),
+        ),
+        max_length=2
+    )
+
+
