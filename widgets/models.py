@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models.loading import get_model
@@ -46,12 +47,29 @@ class Widget(PolymorphicModel, GenericAttrMixin, EnabledMixin, SlugMixin,
 
 
 class WidgetAspect(PolymorphicModel, TitleMixin, TextMixin, SlugMixin, ImageMixin):
+    
     widget = models.ForeignKey('Widget', related_name='aspects')
 
 
 ###
 # Widgets
 ###
+
+# Widget With Modal
+
+class WidgetModal(Widget):
+
+    content_type = models.ForeignKey(
+        'contenttypes.ContentType',
+        limit_choices_to={'model__in': ['modal',]},
+    )
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey('content_type', 'object_id')
+
+    @property
+    def modal(self):
+        return self.content_object
+
 
 # WidgetMap
 class WidgetMap(Widget):
