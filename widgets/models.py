@@ -12,17 +12,18 @@ from entropy.mixins import (
 
 from attrs.mixins import GenericAttrMixin
 from templates.mixins import TemplateMixin
+from modals.mixins import ModalMixin
 
 try:
     from images.mixins import ImageMixin
 except ImportError:
     ImageMixin = object
 
-
 # Widget Base Classes
 
 class Widget(PolymorphicModel, GenericAttrMixin, EnabledMixin, SlugMixin,
-             TextMixin, TitleMixin, TemplateMixin, ImageMixin):
+             TextMixin, TitleMixin, TemplateMixin, ImageMixin,
+             ModalMixin):
     '''
     A Widget is a contained module of functionality that is displayed within a
     Display.
