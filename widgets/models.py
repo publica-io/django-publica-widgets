@@ -13,7 +13,6 @@ from entropy.mixins import (
 
 from attrs.mixins import GenericAttrMixin
 from templates.mixins import TemplateMixin
-from modals.mixins import ModalMixin
 
 try:
     from images.mixins import ImageMixin
