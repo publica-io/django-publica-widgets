@@ -8,8 +8,8 @@ MAP_POI_ACTIVITIES = getattr(
     )
 )
 
-MAP_POI_CATEGORIES = getattr(
-    settings, 'WIDGETS_MAP_POI_CATEGORIES', (
+MAP_POI_VENUES = getattr(
+    settings, 'WIDGETS_MAP_POI_VENUES', (
         ('bar', 'Bar'),
         ('cafe', 'Coffee'),
         ('food', 'Food')

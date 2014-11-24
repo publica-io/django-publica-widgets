@@ -14,7 +14,7 @@ from entropy.mixins import (
 from attrs.mixins import GenericAttrMixin
 from templates.mixins import TemplateMixin
 
-from .settings import MAP_POI_ACTIVITIES, MAP_POI_CATEGORIES
+from .settings import MAP_POI_ACTIVITIES, MAP_POI_VENUES
 
 try:
     from images.mixins import ImageMixin
@@ -105,7 +105,7 @@ class WidgetMapPOI(WidgetAspect):
     # text
 
     activity = models.CharField(choices=MAP_POI_ACTIVITIES, max_length=50)
-    category = models.CharField(choices=MAP_POI_CATEGORIES, max_length=50)
+    venue = models.CharField(choices=MAP_POI_VENUES, max_length=50)
 
     x = models.IntegerField()
     y = models.IntegerField()
