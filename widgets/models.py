@@ -45,7 +45,7 @@ class Widget(PolymorphicModel, GenericAttrMixin, EnabledMixin, SlugMixin,
 
 
 class WidgetAspect(PolymorphicModel, TitleMixin, TextMixin, SlugMixin, ImageMixin):
-    
+
     widget = models.ForeignKey('Widget', related_name='aspects')
 
 
@@ -104,48 +104,3 @@ class WidgetMapPOI(WidgetAspect):
 
     x = models.IntegerField()
     y = models.IntegerField()
-
-
-# WidgetGrid
-class WidgetGrid(Widget):
-    '''
-    A Grid widget to hold multiple grid items
-
-    '''
-
-    # title
-    # short_title
-    # text
-    # slug
-    # enabled
-    # images
-    # attrs / name, value
-
-    @cached_property
-    def items(self):
-        '''
-        Return only the Grid Items Aspects of the Grid.
-
-        '''
-
-        return self.aspects.filter(
-            polymorphic_ctype=ContentType.objects.get_for_model(
-                get_model('widgets.WidgetGridItem')
-            )
-        )
-
-
-class WidgetGridItem(WidgetAspect):
-    '''
-    A Grid Item aspect for the Grid.
-
-    '''
-
-    # widget
-    # title
-    # short_title
-    # slug
-    # images
-    # text
-
-    pass
