@@ -14,7 +14,7 @@ from entropy.mixins import (
 from attrs.mixins import GenericAttrMixin
 from templates.mixins import TemplateMixin
 
-from .settings import WIDGET_MAP_POI_CATEGORIES
+from .settings import WIDGET_MAP_POI_CATEGORIES, WIDGET_MAP_POI_KINDS
 
 try:
     from images.mixins import ImageMixin
@@ -47,7 +47,7 @@ class Widget(PolymorphicModel, GenericAttrMixin, EnabledMixin, SlugMixin,
 
 
 class WidgetAspect(PolymorphicModel, TitleMixin, TextMixin, SlugMixin, ImageMixin):
-    
+
     widget = models.ForeignKey('Widget', related_name='aspects')
 
 
@@ -104,7 +104,8 @@ class WidgetMapPOI(WidgetAspect):
     # slug
     # text
 
-    category = models.CharField(choices=MAP_POI_CATEGORIES, max_length=50)
+    category = models.CharField(choices=WIDGET_MAP_POI_CATEGORIES, max_length=50)
+    kind = models.CharField(choices=WIDGET_MAP_POI_KINDS, max_length=50)
 
     x = models.IntegerField()
     y = models.IntegerField()
