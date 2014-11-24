@@ -14,6 +14,8 @@ from entropy.mixins import (
 from attrs.mixins import GenericAttrMixin
 from templates.mixins import TemplateMixin
 
+from .settings import MAP_POI_ACTIVITIES, MAP_POI_VENUES
+
 try:
     from images.mixins import ImageMixin
 except ImportError:
@@ -45,7 +47,7 @@ class Widget(PolymorphicModel, GenericAttrMixin, EnabledMixin, SlugMixin,
 
 
 class WidgetAspect(PolymorphicModel, TitleMixin, TextMixin, SlugMixin, ImageMixin):
-    
+
     widget = models.ForeignKey('Widget', related_name='aspects')
 
 
@@ -101,6 +103,9 @@ class WidgetMapPOI(WidgetAspect):
     # short_title
     # slug
     # text
+
+    activity = models.CharField(choices=MAP_POI_ACTIVITIES, max_length=50)
+    venue = models.CharField(choices=MAP_POI_VENUES, max_length=50)
 
     x = models.IntegerField()
     y = models.IntegerField()
