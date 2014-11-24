@@ -14,6 +14,8 @@ from entropy.mixins import (
 from attrs.mixins import GenericAttrMixin
 from templates.mixins import TemplateMixin
 
+from .settings import WIDGET_MAP_POI_CATEGORIES
+
 try:
     from images.mixins import ImageMixin
 except ImportError:
@@ -101,6 +103,8 @@ class WidgetMapPOI(WidgetAspect):
     # short_title
     # slug
     # text
+
+    category = models.CharField(choices=MAP_POI_CATEGORIES, max_length=50)
 
     x = models.IntegerField()
     y = models.IntegerField()
