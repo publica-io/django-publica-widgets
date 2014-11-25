@@ -8,7 +8,7 @@ from django.utils.functional import cached_property
 from polymorphic import PolymorphicModel
 
 from entropy.mixins import (
-    TextMixin, EnabledMixin, SlugMixin, TitleMixin
+    TextMixin, EnabledMixin, LinkURLMixin, SlugMixin, TitleMixin
 )
 
 from attrs.mixins import GenericAttrMixin
@@ -43,7 +43,20 @@ class Widget(PolymorphicModel, GenericAttrMixin, EnabledMixin, SlugMixin,
     # images
     # attrs / name, value
 
-    pass
+    @property
+    def links(self):
+        return [widget_link.link for widget_link in self.aspects.filter(
+            polymorphic_ctype=ContentType.objects.get_for_model(
+                get_model('widgets.WidgetLinkAspect')
+            )
+        )]
+
+    @property
+    def link(self):
+        try:
+            return self.links[0]
+        except IndexError:
+            return None
 
 
 class WidgetAspect(PolymorphicModel, TitleMixin, TextMixin, SlugMixin, ImageMixin):
@@ -54,6 +67,18 @@ class WidgetAspect(PolymorphicModel, TitleMixin, TextMixin, SlugMixin, ImageMixi
 ###
 # Widgets
 ###
+
+
+# Widget link
+
+class WidgetLinkAspect(WidgetAspect):
+    '''
+    Create a linkage to a menus.Link
+    '''
+
+    link = models.ForeignKey('menus.Link')
+
+
 
 # Widget With Modal
 
