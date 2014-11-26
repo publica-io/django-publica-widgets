@@ -19,7 +19,8 @@ try:
             "widgets",
             "attrs",
             "templates",
-            "modals"
+            "modals",
+            "menus"
         ],
         SITE_ID=1,
         NOSE_ARGS=['-s'],
