@@ -8,7 +8,7 @@ from django.utils.functional import cached_property
 from polymorphic import PolymorphicModel
 
 from entropy.mixins import (
-    TextMixin, EnabledMixin, LinkURLMixin, SlugMixin, TitleMixin
+    TextMixin, EnabledMixin, OrderingMixin, LinkURLMixin, SlugMixin, TitleMixin
 )
 
 from attrs.mixins import GenericAttrMixin
@@ -27,7 +27,7 @@ class Widget(PolymorphicModel, GenericAttrMixin, EnabledMixin, SlugMixin,
              TextMixin, TitleMixin, TemplateMixin, ImageMixin):
     '''
     A Widget is a contained module of functionality that is displayed within a
-    Display.
+    View.
 
     We add functionality by subclassing Widget into polymorphic implementations
     of Widget; the adding WidgetAspects or a light EAV implementation via the
@@ -165,6 +165,7 @@ class WidgetList(Widget):
             ('ul', 'un-ordered'),
             ('dl', 'definition'),
         ),
+        default='ul',
         max_length=2
     )
 
@@ -176,16 +177,15 @@ class WidgetList(Widget):
     def items(self):
         '''
         Return only the List Aspects of the Grid.
-
         '''
-
         return self.aspects.filter(
             polymorphic_ctype=ContentType.objects.get_for_model(
                 get_model('widgets.WidgetListAspect')
             )
         )
 
-class WidgetListAspect(models.Model):
+
+class WidgetListAspect(OrderingMixin):
 
     widget = models.ForeignKey('Widget')
 
@@ -197,3 +197,15 @@ class WidgetListAspect(models.Model):
     definition = models.CharField(
         'List Item Value / Defintion',
         max_length=1024)
+
+    class Meta:
+        ordering = ('order', )
+
+    def __unicode__(self):
+        if self.title and self.widget.type == 'dl':
+            return '{} :: {}'.format(self.title, self.definition)
+        if self.widget.type == 'ol':
+            return '{}) {}'.format(self.order + 1, self.definition)
+        return self.definition
+
+
