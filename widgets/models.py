@@ -168,43 +168,9 @@ class WidgetList(Widget):
         max_length=2
     )
 
-    @cached_property
-    def items(self):
-        '''
-        Return only the List Aspects of the Grid.
-
-        '''
-
-        return self.aspects.filter(
-            polymorphic_ctype=ContentType.objects.get_for_model(
-                get_model('widgets.WidgetListAspect')
-            )
-        )
-
-class WidgetListAspect(WidgetAspect, GenericAttrMixin):
-
-
-    # widget fk
-
-    list_title = models.CharField(
-        'List Item Title (used only in Definition Lists)',
-        max_length=50,
-        blank=False,
-        null=True)
-
-
-# Widget List
-
-
-class WidgetList(Widget):
-
-    type = models.CharField(choices=(
-            ('ol', 'ordered'),
-            ('ul', 'un-ordered'),
-            ('dl', 'definition'),
-        ),
-        max_length=2
-    )
+    class Meta:
+        verbose_name = 'List Widget'
+        verbose_name_plural = 'List Widgets w/ Numbered Items'
 
     @cached_property
     def items(self):
@@ -219,15 +185,14 @@ class WidgetList(Widget):
             )
         )
 
-class WidgetListAspect(WidgetAspect, GenericAttrMixin):
+class WidgetListAspect(models.Model):
 
-
-    # widget fk
+    widget = models.ForeignKey('Widget')
 
     title = models.CharField(
         'List Item Title (used only in Definition Lists)',
         max_length=50,
-        blank=False)
+        blank=True)
 
     definition = models.CharField(
         'List Item Value / Defintion',

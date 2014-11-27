@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('widgets', '0002_widget_featured_on_homepage'),
+        ('widgets', '0002_widget_featured'),
     ]
 
     operations = [
@@ -18,20 +18,22 @@ class Migration(migrations.Migration):
                 ('type', models.CharField(max_length=2, choices=[(b'ol', b'ordered'), (b'ul', b'un-ordered'), (b'dl', b'definition')])),
             ],
             options={
-                'abstract': False,
+                'verbose_name': 'List Widget',
+                'verbose_name_plural': 'List Widgets w/ Numbered Items',
             },
             bases=('widgets.widget',),
         ),
         migrations.CreateModel(
             name='WidgetListAspect',
             fields=[
-                ('widgetaspect_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='widgets.WidgetAspect')),
-                ('list_title', models.CharField(max_length=50, null=True, verbose_name=b'List Item Title (used only in Definition Lists)')),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('title', models.CharField(max_length=50, verbose_name=b'List Item Title (used only in Definition Lists)', blank=True)),
+                ('definition', models.CharField(max_length=1024, verbose_name=b'List Item Value / Defintion')),
+                ('widget', models.ForeignKey(to='widgets.Widget')),
             ],
             options={
-                'abstract': False,
             },
-            bases=('widgets.widgetaspect', models.Model),
+            bases=(models.Model,),
         ),
         migrations.AlterModelOptions(
             name='widget',
@@ -47,6 +49,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterModelOptions(
             name='widgetmodal',
-            options={'verbose_name': 'Content Widget with a Popup Modal', 'verbose_name_plural': 'Content Widgets with Popup Modals'},
+            options={'verbose_name': 'Content Widget with a Popup Modal Window', 'verbose_name_plural': 'Content Widgets with Popup Modal Windows'},
         ),
     ]
