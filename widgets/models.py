@@ -137,3 +137,42 @@ class WidgetMapPOI(WidgetAspect):
 
     x = models.IntegerField()
     y = models.IntegerField()
+
+
+# Widget List
+class WidgetList(Widget):
+
+    type = models.CharField(choices=(
+            ('ol', 'ordered'),
+            ('ul', 'un-ordered'),
+            ('dl', 'definition'),
+        ),
+        max_length=2
+    )
+
+    @cached_property
+    def items(self):
+        '''
+        Return only the List Aspects of the Grid.
+
+        '''
+
+        return self.aspects.filter(
+            polymorphic_ctype=ContentType.objects.get_for_model(
+                get_model('widgets.WidgetListAspect')
+            )
+        )
+
+class WidgetListAspect(WidgetAspect, GenericAttrMixin):
+
+
+    # widget fk
+
+    list_title = models.CharField(
+        'List Item Title (used only in Definition Lists)',
+        max_length=50,
+        blank=False)
+
+    definition = models.CharField(
+        'List Item Value / Defintion',
+        max_length=1024)
