@@ -13,8 +13,8 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='widget',
-            name='featured_on_homepage',
-            field=models.NullBooleanField(default=False, help_text=b'Feature this on the homepage'),
+            name='featured',
+            field=models.BooleanField(default=False, help_text=b'Feature this on the homepage'),
             preserve_default=True,
         ),
     ]

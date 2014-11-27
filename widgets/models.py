@@ -42,9 +42,11 @@ class Widget(PolymorphicModel, GenericAttrMixin, EnabledMixin, SlugMixin,
     # enabled
     # images
     # attrs / name, value
-    featured_on_homepage = models.NullBooleanField(default=False,
-        null=True,
-        help_text='Feature this on the homepage')
+    
+    featured = models.BooleanField(
+        default=False,
+        help_text='Feature this on the homepage'
+    )
 
     class Meta:
         verbose_name = 'Content Widget'
