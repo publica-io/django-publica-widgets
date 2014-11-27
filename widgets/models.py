@@ -171,7 +171,8 @@ class WidgetListAspect(WidgetAspect, GenericAttrMixin):
     list_title = models.CharField(
         'List Item Title (used only in Definition Lists)',
         max_length=50,
-        blank=False)
+        blank=False,
+        null=True)
 
     definition = models.CharField(
         'List Item Value / Defintion',
