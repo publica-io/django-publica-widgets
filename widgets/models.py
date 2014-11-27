@@ -101,8 +101,8 @@ class WidgetModal(Widget):
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
     class Meta:
-        verbose_name = 'Content Widget with a Popup Modal Window'
-        verbose_name_plural = 'Content Widgets with Popup Modal Windows'
+        verbose_name = 'Content Widget with a Popup Modal'
+        verbose_name_plural = 'Content Widgets with Popup Modals'
 
     @property
     def modal(self):
