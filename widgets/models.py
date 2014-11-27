@@ -43,6 +43,10 @@ class Widget(PolymorphicModel, GenericAttrMixin, EnabledMixin, SlugMixin,
     # images
     # attrs / name, value
 
+    class Meta:
+        verbose_name = 'Content Widget'
+        verbose_name_plural = 'Content Widgets'
+
     @property
     def links(self):
         return [widget_link.link for widget_link in self.aspects.filter(
@@ -91,6 +95,10 @@ class WidgetModal(Widget):
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
+    class Meta:
+        verbose_name = 'Content Widget with a Popup Modal Window'
+        verbose_name_plural = 'Content Widgets with Popup Modal Windows'
+
     @property
     def modal(self):
         return self.content_object
@@ -102,6 +110,10 @@ class WidgetMap(Widget):
     An Image Based Map Widget with Points Of Interest.
 
     '''
+
+    class Meta:
+        verbose_name = 'Point Of Interest (POI) Map Widget'
+        verbose_name_plural = 'Point Of Interest (POI) Map Widgets'
 
     @cached_property
     def pois(self):
@@ -134,6 +146,10 @@ class WidgetMapPOI(WidgetAspect):
 
     x = models.IntegerField()
     y = models.IntegerField()
+
+    class Meta:
+        verbose_name = 'A Map Point Of Interest (POI)'
+        verbose_name_plural = 'Map Points Of Interest (POI)'
 
 
 # WidgetGrid
