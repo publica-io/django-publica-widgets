@@ -16,6 +16,7 @@ import random
 from django.contrib.contenttypes.models import ContentType
 
 from widgets import models
+from menus.models import Link
 from attrs.models import Attribute
 
 
@@ -51,6 +52,45 @@ class TestWidgetAttrs(unittest.TestCase):
     def tearDown(self):
         Attribute.objects.all().delete()
         models.Widget.objects.all().delete()
+
+
+
+
+class TestWidgetLinks(unittest.TestCase):
+
+    def setUp(self):
+        
+        self.widget = models.Widget(
+            title = 'foo',
+            slug = 'foo')
+        self.widget.save()
+
+
+        self.link = Link(
+            url='/some/funky/url')
+        self.link.save()
+
+
+        self.widget_link = models.WidgetLinkAspect(
+            widget=self.widget,
+            link=self.link)
+        self.widget_link.save()
+        
+
+    def test_links(self):
+
+        list_urls = [link.get_url() for link in self.widget.links]
+        self.assertEqual(list_urls, [u'/some/funky/url'])
+
+    def test_link(self):
+        self.assertEqual(self.widget.link.get_url(), '/some/funky/url')
+
+    def test_no_links(self):
+        self.widget_link.delete()
+        self.link.delete()
+
+        self.assertEqual(self.widget.links, [])
+        self.assertEqual(self.widget.link, None)
 
 
 
