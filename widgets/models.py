@@ -176,18 +176,16 @@ class WidgetList(Widget):
     @cached_property
     def items(self):
         '''
-        Return only the List Aspects of the Grid.
+        Keeping the same convention as other Widget / Aspects
+        encapsulate the list items as a cached_property `items`
         '''
-        return self.aspects.filter(
-            polymorphic_ctype=ContentType.objects.get_for_model(
-                get_model('widgets.WidgetListAspect')
-            )
-        )
+        return self.widgetlistaspect_set.all()
 
 
 class WidgetListAspect(OrderingMixin):
 
-    widget = models.ForeignKey('Widget')
+    widget = models.ForeignKey(
+        'Widget')
 
     title = models.CharField(
         'List Item Title (used only in Definition Lists)',
