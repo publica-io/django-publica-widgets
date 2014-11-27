@@ -26,12 +26,27 @@ class Migration(migrations.Migration):
             name='WidgetListAspect',
             fields=[
                 ('widgetaspect_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='widgets.WidgetAspect')),
-                ('list_title', models.CharField(max_length=50, verbose_name=b'List Item Title (used only in Definition Lists)')),
-                ('definition', models.CharField(max_length=1024, verbose_name=b'List Item Value / Defintion')),
+                ('list_title', models.CharField(max_length=50, null=True, verbose_name=b'List Item Title (used only in Definition Lists)')),
             ],
             options={
                 'abstract': False,
             },
             bases=('widgets.widgetaspect', models.Model),
+        ),
+        migrations.AlterModelOptions(
+            name='widget',
+            options={'verbose_name': 'Content Widget', 'verbose_name_plural': 'Content Widgets'},
+        ),
+        migrations.AlterModelOptions(
+            name='widgetmap',
+            options={'verbose_name': 'Point Of Interest (POI) Map Widget', 'verbose_name_plural': 'Point Of Interest (POI) Map Widgets'},
+        ),
+        migrations.AlterModelOptions(
+            name='widgetmappoi',
+            options={'verbose_name': 'A Map Point Of Interest (POI)', 'verbose_name_plural': 'Map Points Of Interest (POI)'},
+        ),
+        migrations.AlterModelOptions(
+            name='widgetmodal',
+            options={'verbose_name': 'Content Widget with a Popup Modal', 'verbose_name_plural': 'Content Widgets with Popup Modals'},
         ),
     ]
