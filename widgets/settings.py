@@ -10,8 +10,14 @@ MAP_POI_ACTIVITIES = getattr(
 
 MAP_POI_VENUES = getattr(
     settings, 'WIDGETS_MAP_POI_VENUES', (
+        ('atm', 'ATM'),
         ('bar', 'Bar'),
         ('cafe', 'Coffee'),
-        ('food', 'Food')
+        ('food', 'Food'),
+        ('landmark', 'Landmark'),
+        ('library', 'Library'),
+        ('shops', 'Shops'),
+        ('wifi', 'Wi-Fi'),
+        ('wildlife', 'Wildlife')
     )
 )
