@@ -16,6 +16,7 @@ MAP_POI_VENUES = getattr(
         ('food', 'Food'),
         ('landmark', 'Landmark'),
         ('library', 'Library'),
+        ('pin', 'Red Centre'),
         ('shops', 'Shops'),
         ('wifi', 'Wi-Fi'),
         ('wildlife', 'Wildlife')
