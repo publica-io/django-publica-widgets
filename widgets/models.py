@@ -42,7 +42,7 @@ class Widget(PolymorphicModel, GenericAttrMixin, EnabledMixin, SlugMixin,
     # enabled
     # images
     # attrs / name, value
-    
+
     featured = models.BooleanField(
         default=False,
         help_text='Feature this on the homepage'
@@ -200,9 +200,7 @@ class WidgetListAspect(OrderingMixin):
 
     def __unicode__(self):
         if self.title and self.widget.type == 'dl':
-            return '{} :: {}'.format(self.title, self.definition)
+            return u'{} :: {}'.format(self.title, self.definition)
         if self.widget.type == 'ol':
-            return '{}) {}'.format(self.order + 1, self.definition)
+            return u'({}) {}'.format(self.order + 1, self.definition)
         return self.definition
-
-
