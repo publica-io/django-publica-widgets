@@ -192,9 +192,8 @@ class WidgetListAspect(OrderingMixin):
         max_length=50,
         blank=True)
 
-    definition = models.CharField(
-        'List Item Value / Defintion',
-        max_length=1024)
+    definition = models.TextField(
+        'List Item Value / Defintion')
 
     class Meta:
         ordering = ('order', )
