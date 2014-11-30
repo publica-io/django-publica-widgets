@@ -3,8 +3,8 @@ from django.conf import settings
 
 MAP_POI_ACTIVITIES = getattr(
     settings, 'WIDGETS_MAP_POI_ACTIVITIES', (
-        ('place-see', 'Place to See'),
-        ('place-eat', 'Place to Eat')
+        ('place-see', 'Places to see'),
+        ('place-eat', 'Places to eat')
     )
 )
 
