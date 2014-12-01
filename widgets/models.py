@@ -14,17 +14,22 @@ from entropy.mixins import (
 from attrs.mixins import GenericAttrMixin
 from templates.mixins import TemplateMixin
 
-from .settings import MAP_POI_ACTIVITIES, MAP_POI_VENUES
+try:
+    from publica_admin.mixins import PublicaAdminMixin
+except ImportError:
+    PublicaAdminMixin = object
 
 try:
     from images.mixins import ImageMixin
 except ImportError:
     ImageMixin = object
 
+from .settings import MAP_POI_ACTIVITIES, MAP_POI_VENUES
+
 # Widget Base Classes
 
 class Widget(PolymorphicModel, GenericAttrMixin, EnabledMixin, SlugMixin,
-             TextMixin, TitleMixin, TemplateMixin, ImageMixin):
+             TextMixin, TitleMixin, TemplateMixin, ImageMixin, PublicaAdminMixin):
     '''
     A Widget is a contained module of functionality that is displayed within a
     View.
@@ -113,7 +118,6 @@ class WidgetModal(Widget):
 class WidgetMap(Widget):
     '''
     An Image Based Map Widget with Points Of Interest.
-
     '''
 
     class Meta:
