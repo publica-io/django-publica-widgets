@@ -106,8 +106,7 @@ class WidgetModal(Widget):
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
     class Meta:
-        verbose_name = 'Content Widget with a Popup Modal'
-        verbose_name_plural = 'Content Widgets with Popup Modals'
+        verbose_name = 'Reasons & Sidney Popup'
 
     @property
     def modal(self):
@@ -157,8 +156,7 @@ class WidgetMapPOI(WidgetAspect):
     y = models.IntegerField()
 
     class Meta:
-        verbose_name = 'A Map Point Of Interest (POI)'
-        verbose_name_plural = 'Map Points Of Interest (POI)'
+        verbose_name = 'Campus Map Popup'
 
 
 # Widget List
