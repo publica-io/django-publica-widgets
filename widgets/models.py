@@ -105,9 +105,6 @@ class WidgetModal(Widget):
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
-    class Meta:
-        verbose_name = 'Reasons & Sydney Popup'
-
     @property
     def modal(self):
         return self.content_object
